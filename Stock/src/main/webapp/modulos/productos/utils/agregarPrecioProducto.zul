@@ -1,0 +1,48 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window apply="org.zkoss.bind.BindComposer" id="agregarPrecioProductoModalDialog"
+		viewModel="@id('vm') @init('com.cplsystems.stock.app.utils.AgregarPrecioProductoVM')"
+		width="50%" height="80%" position="center,center"
+		closable="true">
+
+
+
+		<borderlayout>
+			<north title="@bind(vm.title)" maxsize="300" size="94%">
+				<grid sclass="fgrid">
+					<columns>
+						<column align="left" width="68%"/>
+						<column align="center" />
+					</columns>
+					<rows>
+						<row>
+							<label width="100%"
+								value="Precio:" />
+							<doublebox value="@bind(vm.producto.precioVenta)"/>
+						</row>
+					</rows>
+				</grid>
+			</north>
+			<center border="0">
+				<grid sclass="fgrid">
+					<columns>
+						<column align="left" width="68%"/>
+						<column align="center" />
+						<column align="center"/>
+					</columns>
+					<rows>
+						<row>
+							<label width="100%"
+								value="@bind(vm.descripcion)" />
+							<button label="Cancelar" width="100%"
+								onClick="@command('closeDialog')" />
+							<button label="Aceptar" width="100%"
+								onClick="@command('transferProduct')" />
+						</row>
+					</rows>
+				</grid>
+			</center>
+		</borderlayout>
+	</window>
+</zk>

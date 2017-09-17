@@ -1,0 +1,209 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<script src="/scripts/watermarks.js" type="text/javascript" />
+	<window apply="org.zkoss.bind.BindComposer" height="100%"
+		viewModel="@id('vm') @init('com.cplsystems.stock.app.vm.requisicion.concentradoVM')">
+
+		<borderlayout>
+			<north maxsize="300" size="40px">
+				<borderlayout>
+					<west size="100%" maxsize="250">
+						<div style="background:#B8D335">
+							<label value="25%"
+								style="color:white;font-size:50px" />
+						</div>
+					</west>
+				</borderlayout>
+			</north>
+			<center>
+				<borderlayout>
+					<west maxsize="600" size="60%" flex="true"
+						border="0" splittable="true">
+						<window height="100%" width="100%">
+							<listbox vflex="1"
+								emptyMessage="Agrege productos a la venta"
+								model="@load(vm.venderProductos)"
+								selectedItem="@bind(vm.producto)"
+								onSelect="@command('seleccionarProducto')">
+								<listhead>
+									<listheader label="No" width="30px"
+										sort="auto" />
+									<listheader label="Producto" style="font-size:85%;"
+										sort="auto(nombre)" />
+									<listheader label="Cantidad" style="font-size:85%;"
+										width="10%" />
+									<listheader label="$ Unitario" style="font-size:85%;"
+										width="13%" sort="auto(precioVenta)" />
+									<listheader label="Subtotal" style="font-size:85%;"
+										width="10%" sort="auto(marca)" />
+									<listheader label="" align="center"
+										width="38px"/>
+								</listhead>
+								<template name="model" var="var">
+									<listitem>
+										<listcell>
+											<label
+												style="font-size:smaller;"
+												value="${forEachStatus.index + 1}" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.nombre)" width="100%" sclass="heightGrid" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.ventaCantidad)" width="100%"
+												sclass="heightGrid" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.precioVenta)" width="100%"
+												sclass="heightGrid" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.ventaSubtotal)" width="100%"
+												sclass="heightGrid" />
+										</listcell>
+										<listcell>
+											<button
+												image="/images/toolbar/remove16.png"
+												onClick="@command('eliminarProductoVenta', index=varStatus.index)"
+												zclass="find_button" tooltiptext="Remover área" />
+										</listcell>
+
+									</listitem>
+								</template>
+							</listbox>
+						</window>
+					</west>
+					<center>
+						<borderlayout>
+							<center>
+								<window>
+
+									<grid>
+										<columns>
+											<column width="37%" />
+											<column />
+											<column width="72px" />
+										</columns>
+										<rows>
+											<row>
+												<label value="Subtotal:"
+													style="font-size:200%; font-weight: 100;" />
+												<label
+													style="font-size:200%; font-weight: 100;"
+													value="@bind(vm.controlVenta.subtotalTag)" />
+											</row>
+											<row>
+												<label value="Descuento"
+													style="font-size:200%; font-weight: 100;" />
+												<label
+													style="font-size:200%; font-weight: 100;"
+													value="@bind(vm.controlVenta.descuentoTag)" />
+											</row>
+										</rows>
+									</grid>
+
+									<grid>
+										<columns>
+											<column align="center" />
+										</columns>
+										<rows>
+											<row>
+												<label
+													style="font-size:500%; font-weight: 900;"
+													value="@bind(vm.controlVenta.totalTag)" />
+											</row>
+										</rows>
+									</grid>
+
+								</window>
+							</center>
+							<south size="45px">
+								<button width="100%" height="100%"
+									label="Pagar" />
+							</south>
+						</borderlayout>
+					</center>
+				</borderlayout>
+			</center>
+			<south size="40%" title="@bind(vm.titleProductosCatalogo)">
+				<borderlayout>
+					<north size="25px">
+						<textbox width="100%" height="100%" value="@bind(vm.inputSearching)"
+							id="buscarProductoVentaId" onChanging="@command('findByNombreCodeBar', text=event.value)"
+							onOK="@command('findByNombreCodeBar')"/>
+							<!-- 
+							<textbox width="100%" height="100%"
+							id="buscarProductoVentaId" onChanging="@command('findByNombreCodeBar',v=event.value)"
+							onOK="@command('findByNombreCodeBar')"/>
+							
+							 -->
+					</north>
+					<center>
+						<window height="100%" width="100%">
+							<listbox vflex="1"
+								emptyMessage="Catalogo de productos vacio"
+								model="@load(vm.catalogoProductos)"
+								selectedItem="@bind(vm.productoCatalogo)">
+								<listhead>
+									<listheader label="No" width="30px"
+										sort="auto" />
+									<listheader label="Producto"
+										sort="auto(nombre)" />
+									<listheader label="En existencia"
+										width="100px" sort="auto(enExistencia)"/>
+									<listheader label="Unidad"
+										width="70px" sort="auto(unidad.nombre)"/>
+									<listheader label="$ Unitario"
+										width="70px" sort="auto(precioVenta)" />
+									<listheader label="Ubicacion"
+										width="100px" sort="auto(lugar.nombre)" />
+								</listhead>
+								<template name="model" var="var">
+									<listitem onDoubleClick="@command('agregarProductoProductoVenta')">
+										<listcell>
+											<label
+												style="font-size:smaller;"
+												value="${forEachStatus.index + 1}" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.nombre)" width="100%" sclass="heightGrid" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.enExistencia)" width="100%"
+												sclass="heightGrid" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.unidad.nombre)" width="100%"
+												sclass="heightGrid" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.precioVenta)" width="100%"
+												sclass="heightGrid" />
+										</listcell>
+										<listcell>
+											<label
+												value="@bind(var.lugar.nombre)" width="100%"
+												sclass="heightGrid" />
+										</listcell>
+										
+
+									</listitem>
+								</template>
+							</listbox>
+						</window>
+					</center>
+				</borderlayout>
+
+			</south>
+		</borderlayout>
+	</window>
+</zk>

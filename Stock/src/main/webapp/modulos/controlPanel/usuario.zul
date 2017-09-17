@@ -1,0 +1,179 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('evm') @init('com.cplsystems.stock.app.vm.controlpanel.UsuarioVM')"
+		form="@id('fx') @save(evm, before='saveChanges')
+              @validator('com.cplsystems.stock.app.vm.controlpanel.utils.UsuarioValidator')"
+		validationMessages="@id('vmsgs')">
+		<vlayout style="padding-top:15px">
+		<radiogroup id="sv1" />
+			<grid>
+				<columns>
+					<column />
+					<column width="35%" zclass="shadowMenuActions" />
+				</columns>
+				<rows>
+					<row zclass="shadowMenuActions">
+						<div style="margin:5px">
+							<button
+								label="Panel de control > Registro y configuración de clientes"
+								image="/images/toolbar/home32.png"
+								zclass="panelInfoItemMenuTitle" />
+						</div>
+						<hlayout style="text-align:right">
+							<button image="/images/toolbar/newDoc.png"
+								sclass="web_button" onClick="@command('nuevaOrganizacion')"
+								tooltiptext="Registrar nuevo cliente" />
+							<button image="/images/toolbar/saveOff.png"
+								sclass="web_button" onClick="@command('saveChanges')"
+								tooltiptext="Actualizar/Guardar Cliente" />
+							<button image="/images/toolbar/delete.png"
+								sclass="web_button" onClick="@command('delete')"
+								tooltiptext="Eliminar cliente" />
+							<button image="/images/toolbar/find.png"
+								sclass="web_button" onClick="@command('buscarOrganizacion')"
+								tooltiptext="Buscar clientes" />
+						</hlayout>
+					</row>
+				</rows>
+			</grid>
+
+		
+
+				<vlayout style="text-align:center" visible="false">
+					<image content="@bind(evm.businessImage)"
+						height="100px" width="100px"
+						style="border-style: inset;border-color: #D9E0E7;border-width: 1px;" />
+					<separator />
+
+					<button label="Adjuntar" upload="true"
+						image="/images/toolbar/upload32.png"
+						onUpload="@command('uploadProfilePicture')" />
+				</vlayout>
+
+
+
+
+
+				<grid style="border: 0;">
+					<columns>
+						<column width="15%" />
+						<column/>
+					</columns>
+					<rows>
+						<row style="background-color: transparent; border: 0;">
+							
+							<hlayout>
+								<label value="*" style="color:red" />
+								<label value="Compañía:" />
+							</hlayout>
+							<textbox cols="80" zclass="tBox" width="100%"
+								value="@bind(evm.organizacion.nombre)" />
+						</row>
+					</rows>
+				</grid>
+				<grid style="border: 0;">
+					<columns>
+						<column width="15%" />
+						<column/>
+						<column width="7%" />
+						<column/>
+						<column width="7%" />
+						<column/>
+					</columns>
+					<rows>
+						<row style="background-color: transparent; border: 0;">
+							<hlayout>
+								<label value="*" style="color:red" />
+								<label value="Direccion" />
+							</hlayout>
+							<textbox cols="60" zclass="tBox" width="100%"
+								value="@bind(evm.organizacion.direccion.calle)" />
+							<hlayout>
+								<label value="*" style="color:red" />
+								<label value="C.P:" />
+							</hlayout>
+							<textbox cols="9" zclass="tBox" width="100%"
+								value="@bind(evm.organizacion.direccion.cp)" />
+							<hlayout>
+								<label value="*" style="color:red" />
+								<label value="RFC:" />
+							</hlayout>
+							<textbox cols="9" zclass="tBox" width="100%"
+								value="@bind(evm.organizacion.rfc)" />
+						</row>
+					</rows>
+				</grid>
+				<grid style="border: 0;">
+					<columns>
+						<column width="15%" />
+						<column/>
+						<column width="15%" />
+						<column/>
+					</columns>
+					<rows>
+						<row style="background-color: transparent; border: 0;">
+							<hlayout>
+								<label value="*" style="color:red" />
+								<label value="Usuario" />
+							</hlayout>
+							<textbox cols="80" zclass="tBox" width="100%"
+								value="@bind(evm.usuario.benutzer)" />
+							<label value="Fecha caducidad" />
+							<datebox format="long" width="100%"
+								value="@bind(evm.usuario.fechaCaducidad)"
+								onCreate="self.value = new Date()" locale="mx" />
+						</row>
+						<row style="background-color: transparent; border: 0;">
+							<hlayout>
+								<label value="*" style="color:red" />
+								<label value="Contraseña" />
+							</hlayout>
+							<textbox zclass="tBox" width="100%" type="password"
+								maxlength="24" value="@bind(evm.usuario.kennwort)"/>
+							<hlayout>
+								<label value="*" style="color:red" />
+								<label value="Repetir contraseña" />
+							</hlayout>
+							<textbox zclass="tBox" width="100%" type="password"
+								maxlength="24" value="@bind(evm.usuario.retypeKennwort)"/>
+						</row>
+					</rows>
+				</grid>
+				
+				
+				<listbox
+					emptyMessage="lista de usuarios"
+					rows="10" autopaging="true" model="@load(evm.usuarios)"
+					selectedItem="@bind(evm.usuarioSeleccionado)">
+					<listhead>
+
+						<listheader label="Nombre" />
+						<listheader label="Usuario"
+							style="text-align:center" width="30%" />
+						<listheader label="Administrador" width="15%" />
+					</listhead>
+					<template name="model" var="usuarioVar">
+						<listitem>
+
+							<listcell>
+								<label
+									value="@bind(usuarioVar.persona.nombreCompleto)" width="100%" />
+							</listcell>
+							<listcell>
+								<label
+									value="@bind(usuarioVar.benutzer)" width="100%" />
+							</listcell>
+							<listcell>
+								<radio label="" radiogroup="sv1" selected="@bind(usuarioVar.client)" disabled="@bind(evm.deshabiliraRadioButton)"
+								onClick="@command('cambiarAdministrador', index=usuarioVarStatus.index))"/>
+							</listcell>
+							
+						</listitem>
+					</template>
+				</listbox>
+				
+				
+		</vlayout>
+	</div>
+</zk>

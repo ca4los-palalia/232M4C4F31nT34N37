@@ -1,0 +1,448 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="/styles/home/styleGlobal.css" />
+	<style src="/styles/home/styleHome.css" />
+	<script src="/scripts/watermarks.js" type="text/javascript" />
+
+	<window apply="org.zkoss.bind.BindComposer" height="100%"
+		viewModel="@id('vm') @init('com.cplsystems.stock.app.vm.requisicion.RequisicionVM')"
+		ctrlKeys="^a^s^d#f8"
+		onCtrlKey="@command('ctrlKeyClick',item=event.getKeyCode())">
+
+		<borderlayout>
+			<north border="none"></north>
+			<center border="none">
+				<window height="100%" width="100%" border="none">
+					<listbox vflex="1"
+						emptyMessage="No se encontro ningun producto"
+						model="@load(vm.productoModel)" selectedItem="@bind(vm.producto)"
+						onSelect="@command('seleccionarProducto')">
+
+						<auxhead sclass="category-center">
+							<auxheader label="Catalogo de productos"
+								colspan="10" />
+						</auxhead>
+						<auxhead>
+							<auxheader />
+							<auxheader colspan="1">
+								<grid sclass="my-grid">
+									<columns>
+										<column width="28px" />
+										<column />
+									</columns>
+									<rows>
+										<row>
+											<image width="20px"
+												height="auto" src="/images/toolbar/filter.png" />
+											<textbox instant="true"
+												width="100%" tooltiptext="Filtrar por nombre del producto"
+												value="@bind(vm.productoFilter.nombre)"
+												onChange="@command('changeFilter')" />
+										</row>
+									</rows>
+								</grid>
+							</auxheader>
+							<auxheader colspan="1">
+								<grid sclass="my-grid">
+									<columns>
+										<column width="28px" />
+										<column />
+									</columns>
+									<rows>
+										<row>
+											<image width="20px"
+												height="auto" src="/images/toolbar/filter.png" />
+											<textbox instant="true"
+												width="100%" tooltiptext="filtrar por codigo de barras"
+												value="@bind(vm.productoFilter.codigoBarra)"
+												onChange="@command('changeFilter')" />
+										</row>
+									</rows>
+								</grid>
+
+
+							</auxheader>
+							<auxheader align="center"
+								label="Detalles de producto" colspan="7" />
+						</auxhead>
+
+						<listhead>
+							<listheader label="No" width="30px"
+								sort="auto" />
+							<listheader label="Nombre"
+								sort="auto(nombre)" />
+							<listheader label="Codigo barras"
+								width="130px" sort="auto(codigoBarras)" />
+							<listheader label="Existencia" width="70px"
+								sort="auto(enExistencia)" />
+							<listheader label="Unidad" width="60px"
+								sort="auto(unidad.nombre)" />
+							<listheader label="Marca" width="100px"
+								sort="auto(marca.nombre)" />
+							<listheader label="Ubicacion" width="100px"
+								sort="auto(lugar.nombre)" />
+							<listheader label="$ venta" width="55px"
+								sort="auto(precioVenta)" />
+							<listheader label="Actualizacion"
+								width="90px" sort="auto(fechaActualizacionDate)" />
+							<listheader label="" align="center"
+								width="38px" />
+
+						</listhead>
+						<template name="model" var="var">
+							<listitem>
+								<listcell>
+									<label style="font-size:smaller;"
+										value="${forEachStatus.index + 1}" />
+								</listcell>
+								<listcell>
+									<label value="@bind(var.nombre)"
+										width="100%" sclass="heightGrid" />
+								</listcell>
+								<listcell>
+									<label
+										value="@bind(var.codigoBarras)" width="100%"
+										sclass="heightGrid" />
+								</listcell>
+
+								<listcell>
+									<label
+										value="@bind(var.enExistencia)" width="100%"
+										sclass="heightGrid" />
+								</listcell>
+								<listcell>
+									<label
+										value="@bind(var.unidad.nombre)" width="100%"
+										sclass="heightGrid" />
+								</listcell>
+								<listcell>
+									<label
+										value="@bind(var.marca.nombre)" width="100%"
+										sclass="heightGrid" />
+								</listcell>
+								<listcell>
+									<label
+										value="@bind(var.lugar.nombre)" width="100%"
+										sclass="heightGrid" />
+								</listcell>
+								<listcell>
+									<label
+										value="@bind(var.precioVenta)" width="100%"
+										sclass="heightGrid" />
+								</listcell>
+								<listcell>
+									<label
+										value="@bind(var.fechaActualizacionDate)" width="100%"
+										sclass="heightGrid" />
+								</listcell>
+								<listcell>
+									<button
+										image="/images/toolbar/remove16.png"
+										onClick="@command('eliminarProductoQuestion', index=varStatus.index)"
+										zclass="find_button" tooltiptext="Remover producto" />
+								</listcell>
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter span="10"
+								label="@load(vm.footer)" />
+						</listfoot>
+					</listbox>
+				</window>
+
+			</center>
+			<south height="235px" flex="true" collapsible="true"
+				title="Detalles del producto" border="none">
+				<borderlayout>
+					<center border="none">
+						<borderlayout>
+							<north size="74%" border="none">
+								<window border="none">
+									<grid sclass="my-grid">
+										<columns>
+											<column width="72px" />
+											<column />
+											<column width="72px" />
+											<column />
+										</columns>
+										<rows>
+											<row>
+												<label value="Clave:" />
+												<textbox width="100%"
+													value="@bind(vm.producto.clave)" />
+												<label value="Nombre:" />
+												<textbox width="100%"
+													value="@bind(vm.producto.nombre)" />
+											</row>
+											<row>
+												<label value="Modelo:" />
+												<textbox width="100%"
+													value="@bind(vm.producto.modelo)" />
+												<label value="Marca:" />
+												<combobox width="100%"
+													buttonVisible="true" readonly="true"
+													model="@load(vm.marcas)"
+													selectedItem="@bind(vm.producto.marca)"
+													tooltiptext="@bind(vm.producto.marca.nombre)">
+													<template
+														name="model">
+														<comboitem
+															tooltiptext="@load(each.nombre)"
+															label="@load(each.nombre)" />
+													</template>
+												</combobox>
+
+												<textbox width="100%"
+													value="@bind(vm.producto.marca.nombre)" />
+											</row>
+										</rows>
+									</grid>
+
+									<grid sclass="my-grid">
+										<columns>
+											<column width="72px" />
+											<column />
+											<column width="72px" />
+											<column />
+											<column width="72px" />
+											<column />
+											<column width="72px" />
+											<column />
+										</columns>
+										<rows>
+											<row>
+												<label value="Unidad:" />
+												<combobox width="100%"
+													buttonVisible="true" readonly="true"
+													model="@load(vm.unidadesDB)"
+													selectedItem="@bind(vm.producto.unidad)"
+													tooltiptext="@bind(vm.producto.unidad.nombre)">
+													<template
+														name="model">
+														<comboitem
+															tooltiptext="@load(each.nombre)"
+															label="@load(each.nombre)" />
+													</template>
+												</combobox>
+												<label
+													value="Naturaleza:" />
+												<combobox width="100%"
+													buttonVisible="true" readonly="true"
+													model="@load(vm.productosNaturalezas)"
+													tooltiptext="@bind(vm.producto.productoNaturaleza.nombre)"
+													selectedItem="@bind(vm.producto.productoNaturaleza)">
+													<template
+														name="model">
+														<comboitem
+															tooltiptext="@load(each.nombre)"
+															label="@load(each.nombre)" />
+													</template>
+												</combobox>
+												<label
+													value="Ubicacion:" />
+												<combobox width="100%"
+													buttonVisible="true" readonly="true"
+													tooltiptext="@bind(vm.producto.lugar.nombre)"
+													model="@load(vm.lugares)"
+													selectedItem="@bind(vm.producto.lugar)">
+													<template
+														name="model">
+														<comboitem
+															label="@load(each.nombre)" />
+													</template>
+												</combobox>
+
+
+												<label
+													value="Categoria:" />
+												<combobox width="100%"
+													tooltiptext="@bind(vm.producto.categoria.nombre)"
+													buttonVisible="true" readonly="true"
+													model="@load(vm.categorias)"
+													selectedItem="@bind(vm.producto.categoria)">
+													<template
+														name="model">
+														<comboitem
+															label="@load(each.nombre)" />
+													</template>
+												</combobox>
+											</row>
+										</rows>
+									</grid>
+
+									<grid sclass="my-grid">
+										<columns>
+											<column width="72px" />
+											<column />
+											<column width="72px" />
+											<column />
+											<column width="72px" />
+											<column />
+											<column width="72px" />
+											<column />
+										</columns>
+										<rows>
+											<row>
+												<label value="Activo:" />
+												<checkbox
+													checked="@bind(vm.producto.activo)" />
+
+												<label
+													value="Existencia:" />
+												<grid
+													sclass="my-grid">
+													<columns>
+														<column
+															width="65%" />
+														<column />
+													</columns>
+													<rows>
+														<row>
+															<intbox
+																value="@bind(vm.producto.enExistencia)" width="100%"
+																height="100%" />
+															<button
+																label="+" width="100%" />
+														</row>
+													</rows>
+												</grid>
+
+												<label value="Minimo:" />
+												<intbox
+													value="@bind(vm.producto.minimo)" width="100%" />
+
+												<label value="Maximo:" />
+												<intbox
+													value="@bind(vm.producto.maximo)" width="100%" />
+											</row>
+										</rows>
+									</grid>
+
+
+								</window>
+							</north>
+							<center border="none">
+								<borderlayout>
+									<west size="70%" border="none">
+										<borderlayout>
+											<west maxsize="600"
+												size="80px">
+												<grid
+													sclass="my-grid">
+													<columns>
+														<column />
+													</columns>
+													<rows>
+														<row>
+															<label
+																value="Descripcion:" />
+														</row>
+													</rows>
+												</grid>
+											</west>
+											<center>
+												<textbox
+													value="@bind(vm.producto.descripcion)" multiline="true"
+													width="100%" height="100%" />
+											</center>
+											<east size="20%"
+												border="none">
+												<image width="100%"
+													height="100%" onClick="@command('verImagenProducto')"
+													content="@bind(vm.producto.imagenAImage)"
+													style="cursor:pointer" />
+											</east>
+										</borderlayout>
+									</west>
+									<center border="none">
+										<borderlayout>
+											<west size="50%"
+												border="none">
+												<button width="100%"
+													height="100%" upload="true"
+													image="/images/toolbar/uploadColor32.png"
+													onUpload="@command('onUploadExcel',upEvent=event)"
+													tooltiptext="Importar productos desde excel" />
+											</west>
+											<center border="none">
+												<borderlayout>
+													<north size="50%"
+														border="none">
+														<button
+															label="Nuevo" onClick="@command('nuevoProducto')"
+															width="100%" height="100%" />
+													</north>
+													<center
+														border="none">
+														<button
+															label="Guardar" onClick="@command('guardarProducto')"
+															width="100%" height="100%" />
+													</center>
+												</borderlayout>
+											</center>
+										</borderlayout>
+									</center>
+								</borderlayout>
+							</center>
+						</borderlayout>
+					</center>
+					<east size="30%" flex="true" collapsible="true"
+						border="none">
+						<borderlayout>
+							<north maxsize="300" size="70%"
+								border="none">
+								<borderlayout>
+									<north maxsize="300" size="55px"
+										border="none" title="Codigo de barras">
+										<grid sclass="my-grid">
+											<columns>
+												<column />
+												<column />
+											</columns>
+											<rows>
+												<row>
+													<button
+														onClick="@command('generarCodigoBarras')" label="Generar codigo"
+														width="100%" disabled="@bind(vm.producto.generarButton)" />
+													<button onClick="@command('configurarImpresion')"
+														label="Imprimir" width="100%" />
+												</row>
+											</rows>
+										</grid>
+									</north>
+									<center border="none">
+										<image width="100%"
+											height="100%" content="@bind(vm.producto.codeBarAImage)" />
+									</center>
+									<south size="25px" border="none">
+										<window border="none"
+											style="text-align: center; margin-top:2px;">
+											<label
+												style="color:black;font-size:125%; "
+												value="@bind(vm.producto.codigoBarras)" />
+										</window>
+									</south>
+								</borderlayout>
+							</north>
+							<center border="none">
+								<borderlayout>
+									<west maxsize="600" size="50%"
+										title="Precio de compra" flex="true" splittable="true">
+										<decimalbox format="#,##0.00"
+											locale="mx" value="@bind(vm.producto.precioCompra)"
+											width="100%" height="100%" />
+									</west>
+									<center title="Precio de venta">
+										<decimalbox format="#,##0.00"
+											locale="mx" value="@bind(vm.producto.precioVenta)"
+											width="100%" height="100%" />
+									</center>
+								</borderlayout>
+							</center>
+						</borderlayout>
+					</east>
+				</borderlayout>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

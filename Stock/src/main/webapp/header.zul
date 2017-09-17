@@ -1,0 +1,26 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="/styles/home/styleHome.css" />
+	<style src="/styles/home/styleGlobal.css" />
+	<window apply="org.zkoss.bind.BindComposer" height="100%"
+		viewModel="@id('hvm') @init('com.cplsystems.stock.app.vm.HeaderVM')">
+		<grid sclass="my-grid" width="100%">
+			<columns>
+				<column align="left" width="55%" />
+				<column align="right" />
+			</columns>
+			<rows>
+				<row>
+					<label zclass="tlLabel"
+						value="@load(hvm.organizacion.nombre)" sclass="company" />
+					<image width="30px" height="30px" class="circular"
+						style="cursor:pointer" src="/images/home/off24.png"
+						tooltiptext="Cerrar session" onClick="@command('logOut')" />
+					<button onClick="@command('logOut')" visible="false"
+						style="height:30px; width:30px; cursor:pointer"
+						sclass="web_button" image="/images/home/off24.png" />
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

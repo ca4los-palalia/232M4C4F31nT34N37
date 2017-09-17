@@ -1,0 +1,107 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window apply="org.zkoss.bind.BindComposer"
+		id="configuracionImpresionCodigosModalDialog"
+		onCancel="@command('closeDialog')"
+		viewModel="@id('vm') @init('com.cplsystems.stock.app.utils.ConfiguracionImpresionCodigosVM')"
+		width="40%" height="60%" position="center,center" closable="true">
+
+
+		
+		<borderlayout>
+			<north border="none">
+				<grid sclass="my-grid">
+					<columns>
+						<column align="center" />
+						<column align="center" />
+						<column align="center" />
+						<column align="center" />
+					</columns>
+					<rows>
+						<row>
+							<radiogroup onCheck="@command('radioButtonSelected')"
+							    model="@bind(vm.configuraImpresiones)"
+							    
+							    selectedItem="@bind(vm.configuraImpresion)">
+							        <template name="model" var="model">   
+							          <radio label="@load(model.nombre)" checked="@load(model.checked)"/>
+							        </template>    
+							 </radiogroup>
+							<button label="Agregar" onClick="@command('addRow')"/>
+							<button label="Quitar" onClick="@command('removeRow')"/>
+						</row>
+						<row>
+							<hlayout>
+								<spinner value="@bind(vm.contadorHojas)" disabled="@bind(vm.configuraImpresion.deshabilitarSpinner)"
+	                    			format="###" constraint="no empty,min 0" instant="true"/>
+	                    		<label value="Hojas"/>
+                    		</hlayout>
+						</row>
+						<row>
+							<hlayout>
+								<spinner onChange="@command('addRow')" value="@bind(vm.contadorRenglones)" 
+	                    			format="###" constraint="no empty,min 0" instant="true"/>
+	                    		<label value="Renglones"/>
+                    		</hlayout>
+						</row>
+					</rows>
+				</grid>
+
+
+
+			</north>
+			<center title="@bind(vm.winTitle)" border="none">
+				<window height="100%" width="100%">
+
+					<listbox vflex="1"
+						model="@load(vm.renglones)">
+						<listhead>
+							<listheader label="" align="center"/>
+							<listheader label="" align="center"/>
+							<listheader label="" align="center"/>
+							<listheader label="" align="center"/>
+						</listhead>
+						<template name="model" var="cotizacionVar">
+							<listitem>
+								<listcell>
+									<image width="100%" height="auto"
+										content="@bind(cotizacionVar.codeBarAImage)" />
+									<label value="@bind(cotizacionVar.codigoBarras)"/>
+								</listcell>
+								<listcell>
+									<image width="100%" height="auto"
+										content="@bind(cotizacionVar.codeBarAImage)" />
+									<label value="@bind(cotizacionVar.codigoBarras)"/>
+								</listcell>
+								<listcell>
+									<image width="100%" height="auto"
+										content="@bind(cotizacionVar.codeBarAImage)" />
+									<label value="@bind(cotizacionVar.codigoBarras)"/>
+								</listcell>
+								<listcell>
+									<image width="100%" height="auto"
+										content="@bind(cotizacionVar.codeBarAImage)" />
+									<label value="@bind(cotizacionVar.codigoBarras)"/>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</window>
+			</center>
+			<south size="32px" border="none">
+				<grid sclass="fgrid">
+					<columns>
+						<column align="center" />
+					</columns>
+					<rows>
+						<row>
+							<button label="Cerrar" width="100%"
+								onClick="@command('closeDialog')" />
+						</row>
+					</rows>
+				</grid>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

@@ -1,0 +1,287 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<style src="/styles/home/styleGlobal.css" />
+	<style src="/styles/home/styleHome.css" />
+
+	<window apply="org.zkoss.bind.BindComposer" height="100%"
+		id="mainWin"
+		viewModel="@id('vm') @init('com.cplsystems.stock.app.vm.menu.MenuVM')">
+
+
+
+
+		<borderlayout>
+			<north maxsize="300" size="100%" splittable="true"
+				collapsible="true" style="border-style: hidden;">
+				<borderlayout>
+					<center style="border-style: hidden;" flex="true">
+						<window height="100%">
+							<borderlayout>
+								<north style="border-style: hidden;"
+									title="Productos" collapsible="true"
+									visible="@load(vm.mostrarRequisiones)" maxsize="300"
+									size="18%">
+									<borderlayout>
+										<center
+											style="border-style: hidden;" flex="true">
+											<window height="100%"
+												width="100%">
+												<listbox vflex="1">
+													<listhead>
+														<listheader
+															width="100%" />
+														<listheader />
+													</listhead>
+													<listitem>
+														<listcell
+															image="/images/toolbar/text_enriched16.png"
+															onClick="@command('showRequisitions')">
+															<label
+																value="Administrar" width="100%"
+																style="font-size: 10px;" />
+														</listcell>
+													</listitem>
+													<listitem>
+														<listcell
+															image="/images/toolbar/filter_list16.png"
+															onClick="@command('showConcentrado')">
+															<label
+																value="Caja" width="100%"
+																style="font-size: 10px;" />
+														</listcell>
+													</listitem>
+													<listitem visible="false">
+														<listcell
+															image="/images/toolbar/control16.png"
+															onClick="@command('showControl')">
+															<label
+																value="Control" width="100%" style="font-size: 10px;" />
+														</listcell>
+													</listitem>
+												</listbox>
+											</window>
+										</center>
+									</borderlayout>
+								</north>
+								<center style="border-style: hidden;">
+									<borderlayout visible="false">
+										<center
+											style="border-style: hidden;">
+											<borderlayout>
+												<north
+													style="border-style: hidden;"
+													visible="@load(vm.mostrarCotizacionesAutorizaciones)"
+													title="Cotizaciones" collapsible="true" maxsize="300"
+													size="11%">
+													<borderlayout>
+														<center
+															style="border-style: hidden;" flex="true">
+															<window
+																height="100%" width="100%">
+																<listbox
+																	vflex="1">
+																	<listhead>
+																		<listheader
+																			width="100%" />
+																		<listheader />
+																	</listhead>
+																	<listitem>
+																		<listcell
+																			image="/images/toolbar/list16.png"
+																			onClick="@command('showCotizacion')">
+																			<label
+																				value="Cotización" width="100%"
+																				style="font-size: 10px;" />
+																		</listcell>
+																	</listitem>
+																</listbox>
+															</window>
+														</center>
+													</borderlayout>
+												</north>
+												<center
+													style="border-style: hidden;">
+													<borderlayout>
+														<center
+															style="border-style: hidden;">
+															<borderlayout>
+																<north
+																	style="border-style: hidden;"
+																	visible="@load(vm.mostrarOrdenesCompra)"
+																	title="Ordenes de compra" collapsible="true"
+																	maxsize="300" size="12%">
+																	<borderlayout>
+																		<center
+																			style="border-style: hidden;" flex="true">
+																			<window
+																				height="100%" width="100%">
+																				<listbox
+																					vflex="1">
+																					<listhead>
+																						<listheader
+																							width="100%" />
+																						<listheader />
+																					</listhead>
+
+																					<listitem>
+																						<listcell
+																							image="/images/toolbar/buy16.png"
+																							onClick="@command('showOrders')">
+																							<label
+																								value="Órden de compra" width="100%"
+																								style="font-size: 10px;" />
+																						</listcell>
+																					</listitem>
+																				</listbox>
+																			</window>
+																		</center>
+																	</borderlayout>
+																</north>
+																<center
+																	style="border-style: hidden;">
+																	<borderlayout>
+																		<center
+																			style="border-style: hidden;">
+																			<borderlayout>
+																				<north
+																					style="border-style: hidden;"
+																					visible="@load(vm.mostrarPanelControl)"
+																					title="Panel de control" collapsible="true"
+																					maxsize="300" size="41%">
+																					<borderlayout>
+																						<center
+																							style="border-style: hidden;" flex="true">
+																							<window
+																								height="100%" width="100%">
+																								<listbox
+																									vflex="1">
+																									<listhead>
+																										<listheader
+																											width="100%" />
+																									</listhead>
+																									<listitem
+																										visible="@load(vm.clientOptions)">
+																										<listcell
+																											image="/images/toolbar/catalog16.png"
+																											onClick="@command('showControlPanel')">
+																											<label
+																												value="Catalogos" width="100%"
+																												style="font-size: 10px;" />
+																										</listcell>
+																									</listitem>
+																									<listitem>
+																										<listcell
+																											image="/images/toolbar/product16.png"
+																											onClick="@command('showBuscadorProductos')">
+																											<label
+																												value="Productos" width="100%"
+																												style="font-size: 10px;" />
+																										</listcell>
+																									</listitem>
+																									<listitem>
+																										<listcell
+																											image="/images/toolbar/process.png"
+																											onClick="@command('showProvidersSearch')">
+																											<label
+																												value="Proveedores" width="100%"
+																												style="font-size: 10px;" />
+																										</listcell>
+																									</listitem>
+																									<listitem
+																										visible="@load(vm.ownerOptions)">
+																										<listcell
+																											image="/images/toolbar/clients16.png"
+																											onClick="@command('mostrarConfiguracionUsuario')">
+																											<label
+																												value="Clientes" width="100%"
+																												style="font-size: 10px;" />
+																										</listcell>
+																									</listitem>
+																									<listitem>
+																										<listcell
+																											image="/images/toolbar/user16.png"
+																											onClick="@command('configurarUsuariosNegocio')">
+																											<label
+																												value="Usuarios" width="100%"
+																												style="font-size: 10px;" />
+																										</listcell>
+																									</listitem>
+																								</listbox>
+																							</window>
+																						</center>
+																					</borderlayout>
+																				</north>
+																				<center
+																					style="border-style: hidden;">
+																					<borderlayout>
+																						<center
+																							style="border-style: hidden;">
+																							<borderlayout>
+																								<north
+																									style="border-style: hidden;" title="Perfil"
+																									collapsible="true" maxsize="300" size="25%">
+																									<borderlayout>
+																										<center
+																											style="border-style: hidden;" flex="true">
+																											<window
+																												height="100%" width="100%">
+																												<listbox
+																													vflex="1">
+																													<listhead>
+																														<listheader
+																															width="100%" />
+																														<listheader />
+																													</listhead>
+
+																													<listitem>
+																														<listcell
+																															image="/images/toolbar/report.png"
+																															onClick="@command('showPerfiles')">
+																															<label
+																																value="Mi perfil" width="100%"
+																																style="font-size: 10px;" />
+																														</listcell>
+																													</listitem>
+																												</listbox>
+																											</window>
+																										</center>
+																									</borderlayout>
+																								</north>
+																								<center
+																									style="border-style: hidden;">
+																									<borderlayout
+																										style="display: table; border-style: hidden;">
+																										<center
+																											style="border-style: hidden;">
+																											<image
+																												width="100%" height="auto" class="circular"
+																												content="@bind(vm.organizacion.logotipoAImage)" />
+																										</center>
+																									</borderlayout>
+																								</center>
+																							</borderlayout>
+																						</center>
+																					</borderlayout>
+																				</center>
+																			</borderlayout>
+																		</center>
+																	</borderlayout>
+																</center>
+															</borderlayout>
+														</center>
+													</borderlayout>
+												</center>
+											</borderlayout>
+										</center>
+									</borderlayout>
+								</center>
+							</borderlayout>
+						</window>
+					</center>
+
+				</borderlayout>
+			</north>
+		</borderlayout>
+	</window>
+</zk>

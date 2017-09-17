@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportCodeBar" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3256b7da-fa87-4fe6-8803-37d69da813dd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="producto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codigoBarras" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoBarras]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="7" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="53" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="4372d277-cb89-4050-a4d0-d7f1c32afad4" x="0" y="5" width="186" height="35"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{codigoBarras}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement uuid="0ccc1f61-4edf-46c6-bbcf-413bb54bf970" x="0" y="32" width="186" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoBarras}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="4372d277-cb89-4050-a4d0-d7f1c32afad4" x="193" y="5" width="186" height="35"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{codigoBarras}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<componentElement>
+				<reportElement uuid="4372d277-cb89-4050-a4d0-d7f1c32afad4" x="386" y="5" width="186" height="35"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{codigoBarras}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement uuid="0ccc1f61-4edf-46c6-bbcf-413bb54bf970" x="193" y="32" width="186" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoBarras}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0ccc1f61-4edf-46c6-bbcf-413bb54bf970" x="386" y="35" width="186" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoBarras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21">
+			<textField>
+				<reportElement uuid="512b33d5-7f45-4be0-9810-bc60cf309db0" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f73fb970-4e3b-4462-9024-fb75dbfd0deb" x="522" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="30c8a041-9f8e-45de-b298-6852fef69470" x="469" y="1" width="42" height="20"/>
+				<textElement/>
+				<text><![CDATA[Pagina:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>

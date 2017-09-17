@@ -1,0 +1,41 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window apply="org.zkoss.bind.BindComposer"
+		id="visualizadorProductoModalDialog" onCancel="@command('closeDialog')"
+		viewModel="@id('vm') @init('com.cplsystems.stock.app.utils.VisualizadorProductoVM')"
+		width="40%" height="60%" position="center,center" closable="true">
+
+
+
+		<borderlayout>
+			<north border="none"/>
+			<center title="@bind(vm.winTitle)" border="none">
+				<grid sclass="my-grid">
+					<columns>
+						<column align="center" />
+					</columns>
+					<rows>
+						<row>
+							<image width="55%" height="auto" style="margin: auto; padding: 10px;"
+								content="@bind(vm.producto.imagenAImage)" />
+						</row>
+					</rows>
+				</grid>
+			</center>
+			<south size="32px" border="none">
+				<grid sclass="fgrid">
+					<columns>
+						<column align="center" />
+					</columns>
+					<rows>
+						<row>
+							<button label="Cerrar" width="100%"
+								onClick="@command('closeDialog')" />
+						</row>
+					</rows>
+				</grid>
+			</south>
+		</borderlayout>
+	</window>
+</zk>
