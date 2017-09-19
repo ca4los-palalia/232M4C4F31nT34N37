@@ -244,8 +244,27 @@ public class concentradoVM extends RequisicionVariables {
 		this.inputSearching = inputSearching;
 	}
 	
-	
-	
+
+	@Command
+	public void modificarCantidad(){
+		Map<String, Object> inputParams = new HashMap();
+		inputParams.put("itemFinder", "actualizarCantidadProductoAVenta");
+		inputParams.put("productoSelected", producto);
+
+		Window productoModalView = stockUtils
+				.createModelDialogWithParams("/modulos/productos/utils/cambiarCantidadProductos.zul", inputParams);
+		productoModalView.doModal();
+	}
+
+	@Command
+	@NotifyChange({"venderProductos"})
+	public void actualizarCantidadProductoAVenta(@BindingParam("productoModificado") Producto productoModificado){
+		if(productoModificado.getPrecioVenta() != null){
+			productoCatalogo.setPrecioVenta(productoModificado.getPrecioVenta());
+			asignarProductoToVenta();
+			
+		}
+	}
 
 	
 

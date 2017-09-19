@@ -41,7 +41,7 @@
 										width="38px"/>
 								</listhead>
 								<template name="model" var="var">
-									<listitem>
+									<listitem onDoubleClick="@command('modificarCantidad')">
 										<listcell>
 											<label
 												style="font-size:smaller;"
